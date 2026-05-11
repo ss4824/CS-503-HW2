@@ -234,7 +234,6 @@ done
 task="validation"
 if [[ "$fix" == true ]]; then
    task="fixing"
-   quiet_false "$file"
    fixed_file="${file%%.*}.fixed.csv"
    tmp_file=$(mktemp)
    awk -F',' '
@@ -253,7 +252,7 @@ if [[ "$fix" == true ]]; then
       if (!row_forms[$0]++)
          print
    }' "$file" > "$tmp_file" && mv "$tmp_file" "$fixed_file"
-   quiet_false "$fixed_file"
+   quiet_true "$fixed_file"
 else
    if [[ "$quiet" == true ]]; then
       quiet_true "$file"
